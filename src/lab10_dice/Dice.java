@@ -42,37 +42,14 @@ public class Dice extends JFrame {
 	 * Create the frame.
 	 */
 	public Dice() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
-		
-		JButton btnRoll = new JButton("Roll");
-		btnRoll.setFont(new Font("Gurmukhi MN", Font.BOLD, 23));
-		contentPane.add(btnRoll, BorderLayout.SOUTH);
-		
-		btnRoll.setBorder(new EmptyBorder(7, 0, 7, 0));
-		btnRoll.setBorderPainted(false);
-		btnRoll.setForeground(Color.PINK);
-		btnRoll.setBackground(Color.DARK_GRAY);
-		btnRoll.setOpaque(true);
-		
-		JPanel panel = new JPanel();
-		contentPane.add(panel, BorderLayout.NORTH);
-		
-		JLabel label = new JLabel("");
-		panel.add(label);
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setHorizontalTextPosition(SwingConstants.CENTER);
-		label.setIcon(new ImageIcon(Dice.class.getResource("/diceImages/die-2.png")));
-		
-		dices = new ArrayList<>();
-		for(JLabel dice : dices) {
-			dices.add(new JLabel());
-		}
-		
+		makeWindow();
+		JButton btnRoll = makeRollButton();
+		JLabel label = makeDiceLabel();
+		makeDiLabels();
+		eventHandler(btnRoll, label);
+	}
+
+	private void eventHandler(JButton btnRoll, JLabel label) {
 		btnRoll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Random rand = new Random();
@@ -80,6 +57,45 @@ public class Dice extends JFrame {
 				label.setIcon(new ImageIcon(Dice.class.getResource("/diceImages/die-" + num + ".png")));
 			}
 		});
+	}
+
+	private void makeDiLabels() {
+		dices = new ArrayList<>();
+		for(JLabel dice : dices) {
+			dices.add(new JLabel());
+		}
+	}
+
+	private JLabel makeDiceLabel() {
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.NORTH);
+		JLabel label = new JLabel("");
+		panel.add(label);
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setHorizontalTextPosition(SwingConstants.CENTER);
+		label.setIcon(new ImageIcon(Dice.class.getResource("/diceImages/die-2.png")));
+		return label;
+	}
+
+	private JButton makeRollButton() {
+		JButton btnRoll = new JButton("Roll");
+		btnRoll.setFont(new Font("Gurmukhi MN", Font.BOLD, 23));
+		contentPane.add(btnRoll, BorderLayout.SOUTH);
+		btnRoll.setBorder(new EmptyBorder(7, 0, 7, 0));
+		btnRoll.setBorderPainted(false);
+		btnRoll.setForeground(Color.PINK);
+		btnRoll.setBackground(Color.DARK_GRAY);
+		btnRoll.setOpaque(true);
+		return btnRoll;
+	}
+
+	private void makeWindow() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
 	}
 
 }
